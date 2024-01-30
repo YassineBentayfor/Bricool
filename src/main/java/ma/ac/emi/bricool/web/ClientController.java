@@ -14,8 +14,10 @@ import java.util.Optional;
 
 
 @RestController
-//@CrossOrigin(origins = "*")
-@RequestMapping("/clients")
+
+@CrossOrigin(origins = "*")
+
+@RequestMapping("/api/clients")
 public class ClientController {
 
 
@@ -23,10 +25,20 @@ public class ClientController {
     private final ClientService clientService; // Assuming you have a ClientService implementation
 
     @Autowired
+<<<<<<< HEAD
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
+=======
+    private ClientService clientService; // Assuming you have a ClientService implementation
+    @GetMapping("/search")
+    public ResponseEntity<Client> getClientByEmail(@RequestParam("email") String email) {
+        Optional<Client> client = Optional.ofNullable(clientService.getClientByEmail(email));
+        return client.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+>>>>>>> a7f79a405de6835635705c37bd007ba4ab218260
     // Endpoint to create a new client
     @PostMapping
     public ResponseEntity<Client> createClient(@RequestBody Client client) {

@@ -1,6 +1,7 @@
 package ma.ac.emi.bricool.service;
 
 
+import ma.ac.emi.bricool.entities.Client;
 import ma.ac.emi.bricool.entities.Seller;
 import ma.ac.emi.bricool.repositories.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class SellerService {
         sellerRepository.deleteById(id);
     }
 
+<<<<<<< HEAD
 
     // save seller
     public void save(Seller seller) {
@@ -65,4 +67,11 @@ public class SellerService {
     }
 
 
+=======
+    public Seller getSellerByEmail(String email) {
+        List<Seller> sellers = sellerRepository.getByEmail(email);
+        return sellers.isEmpty() ? null : sellers.get(0);
+    }
+
+>>>>>>> a7f79a405de6835635705c37bd007ba4ab218260
 }

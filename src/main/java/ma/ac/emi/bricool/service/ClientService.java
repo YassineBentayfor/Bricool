@@ -24,6 +24,11 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
+    public Client getClientByEmail(String email) {
+        List<Client> clients = clientRepository.getByEmail(email);
+        return clients.isEmpty() ? null : clients.get(0);
+    }
+
     // Get all clients
     public List<Client> getAllClients() {
         return clientRepository.findAll();

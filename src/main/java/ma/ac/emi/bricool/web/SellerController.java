@@ -1,5 +1,6 @@
 package ma.ac.emi.bricool.web;
 
+import ma.ac.emi.bricool.entities.Client;
 import ma.ac.emi.bricool.entities.Seller;
 import ma.ac.emi.bricool.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/sellers")
-//@CrossOrigin(origins = "*")
+@RequestMapping("/api/sellers")
+
+@CrossOrigin(origins = "*")
+
 public class SellerController {
 
     private final SellerService sellerService;
@@ -29,13 +33,25 @@ public class SellerController {
         this.sellerService = sellerService;
     }
 
+
+
     // Create a new seller
     @PostMapping
     public ResponseEntity<Seller> createSeller(@RequestBody Seller seller) {
         Seller createdSeller = sellerService.createSeller(seller);
         return new ResponseEntity<>(createdSeller, HttpStatus.CREATED);
     }
+    @GetMapping("/search")
+    public ResponseEntity<Seller> getSellerByEmail(@RequestParam("email") String email) {
+        Seller seller = sellerService.getSellerByEmail(email);
 
+        if (seller != null) {
+            return new ResponseEntity<>(seller, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
     // Get all sellers
     @GetMapping
     public ResponseEntity<List<Seller>> getAllSellers() {
@@ -64,6 +80,7 @@ public class SellerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+<<<<<<< HEAD
     @GetMapping("/{id}/image")
     public ResponseEntity<byte[]> getSynthImage(@PathVariable("id") long id) {
         try {
@@ -111,5 +128,7 @@ public class SellerController {
         seller.setPhotoDeProfil(image.getOriginalFilename());
         sellerService.save(seller);
     }
+=======
+>>>>>>> a7f79a405de6835635705c37bd007ba4ab218260
 
 }
